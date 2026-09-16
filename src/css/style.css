@@ -203,19 +203,6 @@ button {
   width: 100%;
 }
 
-/* Adding Discount */
-.product__retail-price {
-  color: var(--dark-grey);
-  text-decoration: line-through;
-  padding-bottom: 0;
-}
-
-.product__discount {
-  color: var(--tertiary-color);
-  font-weight: bold;
-  padding-top: 0;
-}
-
 /* Start cart list card styles */
 .cart-card {
   display: grid;
