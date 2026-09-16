@@ -1,21 +1,20 @@
-function convertToJson(res) {
-  if (res.ok) {
-    return res.json();
-  } else {
-    throw new Error("Bad Response");
-  }
-}
-
 export default class ProductData {
   constructor(category) {
     this.category = category;
-    this.path = `../public/json/${this.category}.json`;
+    this.path = `/json/${category}.json`;
   }
-  getData() {
-    return fetch(this.path)
-      .then(convertToJson)
-      .then((data) => data);
+
+  async getData() {
+    const response = await fetch(this.path);
+    if (response.ok) {
+      const data = await response.json();
+      return data;
+    } 
+    else {
+      throw new Error("Bad Response");
+    }
   }
+
   async findProductById(id) {
     const products = await this.getData();
     return products.find((item) => item.Id === id);
