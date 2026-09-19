@@ -48,12 +48,12 @@ function productDetailsTemplate(product) {
     const discountPercent = Math.round(
       ((product.SuggestedRetailPrice - product.FinalPrice) /
         product.SuggestedRetailPrice) *
-        100
+      100
     );
 
     retailPrice.textContent = `Retail Price: $${product.SuggestedRetailPrice.toFixed(2)}`;
     discount.textContent = `${discountPercent}% OFF`;
-  } 
+  }
   else {
     retailPrice.textContent = "";
     discount.textContent = "";
