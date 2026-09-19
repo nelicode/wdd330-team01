@@ -34,7 +34,7 @@ function productDetailsTemplate(product) {
   document.querySelector("h3").textContent = product.NameWithoutBrand;
 
   const productImage = document.getElementById("productImage");
-  productImage.src = product.Image;
+  productImage.src = product.Images.PrimaryLarge;
   productImage.alt = product.NameWithoutBrand;
 
   document.getElementById("productPrice").textContent = `$${product.FinalPrice.toFixed(2)}`;
@@ -44,7 +44,7 @@ function productDetailsTemplate(product) {
   const retailPrice = document.getElementById("retailPrice");
   const discount = document.getElementById("discount");
 
-  if (product.FinalPrice < product.SuggestedRetailPrice) {
+  if (product.SuggestedRetailPrice && product.FinalPrice < product.SuggestedRetailPrice)  {
     const discountPercent = Math.round(
       ((product.SuggestedRetailPrice - product.FinalPrice) /
         product.SuggestedRetailPrice) *
