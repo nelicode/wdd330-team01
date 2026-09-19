@@ -1,51 +1,63 @@
-import { setLocalStorage } from './utils.mjs';
+import { getLocalStorage, setLocalStorage } from "./utils.mjs";
 
 export default class ProductDetails {
-    constructor(productId, dataSource) {
-        this.productId = productId;
-        this.product = {};
-        this.dataSource = dataSource;
-    }
 
-    async init() {
-        this.product = await this.dataSource.findProductById(this.productId);
+  constructor(productId, dataSource) {
+    this.productId = productId;
+    this.product = {};
+    this.dataSource = dataSource;
+  }
 
-        this.renderProductDetails();
+  async init() {
+    this.product = await this.dataSource.findProductById(this.productId);
 
-        document
-            .getElementById('addToCart')
-            .addEventListener('click', this.addProductToCart.bind(this));
-    }
+    this.renderProductDetails();
 
-    addProductToCart() {
-        setLocalStorage('so-cart', this.product);
-    }
+    document
+      .getElementById("addToCart")
+      .addEventListener("click", this.addProductToCart.bind(this));
+  }
 
-    renderProductDetails() {
-        document.querySelector('.product-detail').innerHTML = `
-      <h3>${this.product.Brand.Name}</h3>
+  addProductToCart() {
+    const cartItems = getLocalStorage("so-cart") || [];
+    cartItems.push(this.product);
+    setLocalStorage("so-cart", cartItems);
+  }
 
-      <h2 class="divider">${this.product.Name}</h2>
+  renderProductDetails() {
+    productDetailsTemplate(this.product);
+  }
+}
 
-      <img
-        class="divider"
-        src="${this.product.Image}"
-        alt="${this.product.Name}"
-      />
+function productDetailsTemplate(product) {
+  document.querySelector("h2").textContent = product.Brand.Name;
+  document.querySelector("h3").textContent = product.NameWithoutBrand;
 
-      <p class="product-card__price">$${this.product.ListPrice}</p>
+  const productImage = document.getElementById("productImage");
+  productImage.src = product.Image;
+  productImage.alt = product.NameWithoutBrand;
 
-      <p class="product__color">${this.product.Colors[0].ColorName}</p>
+  document.getElementById("productPrice").textContent = `$${product.FinalPrice.toFixed(2)}`;
+  document.getElementById("productColor").textContent = product.Colors[0].ColorName;
+  document.getElementById("productDesc").innerHTML = product.DescriptionHtmlSimple;
 
-      <p class="product__description">
-        ${this.product.DescriptionHtmlSimple}
-      </p>
+  const retailPrice = document.getElementById("retailPrice");
+  const discount = document.getElementById("discount");
 
-      <div class="product-detail__add">
-        <button id="addToCart" data-id="${this.product.Id}">
-          Add to Cart
-        </button>
-      </div>
-    `;
-    }
+  if (product.FinalPrice < product.SuggestedRetailPrice) {
+    const discountPercent = Math.round(
+      ((product.SuggestedRetailPrice - product.FinalPrice) /
+        product.SuggestedRetailPrice) *
+      100
+    );
+
+    retailPrice.textContent = `Retail Price: $${product.SuggestedRetailPrice.toFixed(2)}`;
+    discount.textContent = `${discountPercent}% OFF`;
+  }
+  else {
+    retailPrice.textContent = "";
+    discount.textContent = "";
+  }
+
+  document.getElementById("addToCart").dataset.id = product.Id;
 }
