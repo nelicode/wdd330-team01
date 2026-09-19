@@ -90,7 +90,7 @@ p {
   margin-top: -1.3em;
 }
 
-.logo--square > div {
+.logo--square>div {
   margin-top: -1.7em;
 }
 
@@ -273,4 +273,36 @@ button {
 footer {
   font-size: var(--small-font);
   padding: 1em;
+}
+
+/* Category icons */
+.categories {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+  margin: 2rem 0;
+  flex-wrap: wrap;
+}
+
+.categories a {
+  text-align: center;
+  text-decoration: none;
+  color: var(--dark-grey);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.categories img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+}
+
+.categories p {
+  font-weight: bold;
+  margin: 0;
+  color: var(--dark-grey);
 }

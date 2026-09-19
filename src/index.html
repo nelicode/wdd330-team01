@@ -6,14 +6,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sleep Outside | Home</title>
   <link rel="stylesheet" href="/css/style.css" />
-  <script src="js/main.js" type="module"></script>
+  <script src="/js/main.js" type="module"></script>
 </head>
 
 <body>
   <header class="divider" id="main-header"></header>
+
   <main class="divider">
     <div class="hero">
-      <img src="/images/banner-sm.jpg" srcset="images/banner-sm.jpg 500w, images/banner.jpg"
+      <img src="/images/banner-sm.jpg" srcset="/images/banner-sm.jpg 500w, /images/banner.jpg"
         alt="image of a high mountain lake" />
       <div class="logo logo--square">
         <img src="/images/noun_Tent_2517.svg" alt="tent image for logo" />
@@ -27,11 +28,31 @@
       </div>
     </div>
 
+    <div class="categories">
+      <a href="/product_listing/?category=tents">
+        <img src="/images/category-tents.svg" alt="Tents" width="80" height="80" />
+        <p>Tents</p>
+      </a>
+      <a href="/product_listing/?category=backpacks">
+        <img src="/images/category-backpacks.svg" alt="Backpacks" width="80" height="80" />
+        <p>Backpacks</p>
+      </a>
+      <a href="/product_listing/?category=sleeping-bags">
+        <img src="/images/category-sleeping-bags.svg" alt="Sleeping Bags" width="80" height="80" />
+        <p>Sleeping Bags</p>
+      </a>
+      <a href="/product_listing/?category=hammocks">
+        <img src="/images/category-hammocks.svg" alt="Hammocks" width="80" height="80" />
+        <p>Hammocks</p>
+      </a>
+    </div>
+
     <section class="products">
       <h2>Top Products</h2>
       <ul class="product-list"></ul>
     </section>
   </main>
+
   <footer id="main-footer"></footer>
 </body>
 
