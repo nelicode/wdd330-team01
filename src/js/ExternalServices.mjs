@@ -4,11 +4,13 @@ function convertToJson(res) {
   if (res.ok) {
     return res.json();
   } else {
-    throw new Error("Bad Response");
+    return res.json().then((err) => {
+      throw new Error(err.message || JSON.stringify(err));
+    });
   }
 }
 
-export default class ProductData {
+export default class ExternalServices {
   constructor() { }
 
   async getData(category) {
@@ -21,5 +23,17 @@ export default class ProductData {
     const response = await fetch(`${baseURL}product/${id}`);
     const data = await convertToJson(response);
     return data.Result;
+  }
+
+  async checkout(order) {
+    const response = await fetch(`${baseURL}checkout`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(order),
+    });
+
+    return convertToJson(response);
   }
 }
