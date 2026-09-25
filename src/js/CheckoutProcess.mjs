@@ -1,8 +1,10 @@
 import { getLocalStorage } from "./utils.mjs";
+import ExternalServices from "./ExternalServices.mjs";
 
 export default class CheckoutProcess {
     constructor() {
         this.cart = getLocalStorage("so-cart") || [];
+        this.services = new ExternalServices();
     }
 
     calculateSubtotal() {
@@ -51,7 +53,13 @@ export default class CheckoutProcess {
         order.shipping = this.calculateShipping();
         order.tax = this.calculateTax();
 
-        return order;
+        try {
+            const response = await this.services.checkout(order);
+            return response;
+        } catch (err) {
+            console.log(err);
+            throw err;
+        }
     }
 }
 
