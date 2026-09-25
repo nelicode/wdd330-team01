@@ -1,7 +1,5 @@
-import { loadHeaderFooter } from "./utils.mjs";
+import { loadHeaderFooter, setLocalStorage } from "./utils.mjs";
 import CheckoutProcess from "./CheckoutProcess.mjs";
-import ExternalServices from "./ExternalServices.mjs";
-const services = new ExternalServices();
 
 const checkout = new CheckoutProcess();
 
@@ -22,12 +20,15 @@ document
     .addEventListener("submit", async (event) => {
         event.preventDefault();
 
-        const form = event.target;
-        const order = await checkout.checkout(form);
+        try {
+            const form = event.target;
+            const response = await checkout.checkout(form);
 
-        const response = await services.checkout(order);
-
-        alert(`${response.message}! Your order number is ${response.orderId}.`);
+            setLocalStorage("so-cart", []);
+            window.location.href = "/checkout/success.html";
+        } catch (err) {
+            alert(`Error: ${err.message.cardNumber}`);
+        }
     });
 
 loadHeaderFooter();
