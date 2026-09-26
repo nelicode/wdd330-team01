@@ -177,6 +177,17 @@ button {
   max-width: 250px;
 }
 
+.product-card__discount {
+  display: inline-block;
+  background-color: var(--tertiary-color);
+  color: white;
+  font-weight: bold;
+  font-size: var(--small-font);
+  padding: 0.25rem 0.5rem;
+  margin-top: 0.5rem;
+  border-radius: 4px;
+}
+
 .product-card h2,
 .product-card h3,
 .product-card p {
