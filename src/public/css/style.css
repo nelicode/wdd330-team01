@@ -338,3 +338,23 @@ footer {
   margin: 0;
   color: var(--dark-grey);
 }
+
+.alert {
+  position: relative;
+  margin: 1rem;
+  padding: 1rem 3rem 1rem 1rem;
+  background-color: var(--primary-color);
+  border: 1px solid var(--tertiary-color);
+}
+
+.alert p {
+  padding: 0;
+}
+
+.alert-close {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.75rem;
+  font-weight: bold;
+  cursor: pointer;
+}

@@ -1,4 +1,4 @@
-import { loadHeaderFooter, setLocalStorage } from "./utils.mjs";
+import { loadHeaderFooter, setLocalStorage, alertMessage } from "./utils.mjs";
 import CheckoutProcess from "./CheckoutProcess.mjs";
 
 const checkout = new CheckoutProcess();
@@ -16,19 +16,27 @@ const orderTotal = checkout.calculateOrderTotal();
 document.querySelector("#order-total").textContent = orderTotal.toFixed(2);
 
 document
-    .querySelector("#checkout-form")
-    .addEventListener("submit", async (event) => {
-        event.preventDefault();
+  .querySelector("#checkout-form")
+  .addEventListener("submit", async (event) => {
+    event.preventDefault();
 
-        try {
-            const form = event.target;
-            const response = await checkout.checkout(form);
+    try {
+      const form = event.target;
+      await checkout.checkout(form);
 
-            setLocalStorage("so-cart", []);
-            window.location.href = "/checkout/success.html";
-        } catch (err) {
-            alert(`Error: ${err.message.cardNumber}`);
-        }
-    });
+      setLocalStorage("so-cart", []);
+      window.location.href = "/checkout/success.html";
+    } catch (err) {
+      let message = "There was a problem placing your order.";
+
+      if (err.message && typeof err.message === "object") {
+        message = Object.values(err.message).join("<br>");
+      } else if (err.message) {
+        message = err.message;
+      }
+
+      alertMessage(message);
+    }
+  });
 
 loadHeaderFooter();
