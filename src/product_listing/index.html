@@ -15,6 +15,16 @@
     <main class="divider">
         <h2 class="products-title">Top Products</h2>
         <section class="products">
+            <div class="product-sort">
+                <label for="sort">Sort by:</label>
+                <select id="sort">
+                    <option value="default">Default</option>
+                    <option value="name-asc">Name: A-Z</option>
+                    <option value="name-desc">Name: Z-A</option>
+                    <option value="price-asc">Price: Low-High</option>
+                    <option value="price-desc">Price: High-Low</option>
+                </select>
+            </div>
             <ul class="product-list"></ul>
         </section>
     </main>
